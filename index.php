@@ -1,16 +1,37 @@
 <?php
-	require 'admin/config.php';
-	require 'functions.php';
 
-	$conexion = conexion($bd_config);
-	if (!$conexion) {
-		header('location: error.php');
-	}
+    require_once "./config/app.php";
+    require_once "./autoload.php";
+    require_once "./app/views/inc/session_start.php";
 
-	$posts = obtener_post($blog_config['post_por_pagina'], $conexion);
-	if (!$posts) {
-		header('location: error.php');
-	}
+    if (isset($_GET['views'])) {
+        $url=explode("/",$_GET['views']);
+    } else {
+        $url=["login"];
+    }
+    
+?>
 
-	require 'views/index.view.php';
- ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <?php require_once "./app/views/inc/head.php"; ?>
+</head>
+<body> 
+
+    <?php 
+        use app\controllers\viewsController;
+
+        $viewsController= new viewsController();
+        $vista=$viewsController->obtenerVistasControlador($url[0]);
+
+        if($vista=="login" || $vista=="404"){
+            require_once "./app/views/content/".$vista."-view.php";
+        }else{
+            require_once "./app/views/inc/navbar.php";
+            require_once $vista;
+        }
+        require_once "./app/views/inc/script.php";
+     ?>
+</body>
+</html>
