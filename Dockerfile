@@ -1,34 +1,26 @@
-# Base LAMP (PHP + Apache)
+# Usar una imagen base oficial de PHP con Apache
 FROM php:8.1-apache
 
-# Instalar extensiones de PHP necesarias (como PDO para MySQL)
-RUN docker-php-ext-install pdo_mysql mysqli
-
-# Instalar herramientas adicionales
+# Instalar extensiones necesarias de PHP
 RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    vim \
-    && apt-get clean
+    libpq-dev \
+    && docker-php-ext-install pdo_pgsql
 
-# Habilitar módulos de Apache (como mod_rewrite para URLs amigables)
+# Habilitar módulos de Apache (si es necesario)
 RUN a2enmod rewrite
 
-# Configurar MySQL (usando una imagen oficial como base)
-ENV MYSQL_ROOT_PASSWORD=rootpassword
-ENV MYSQL_DATABASE=mydatabase
-ENV MYSQL_USER=user
-ENV MYSQL_PASSWORD=userpassword
-
-# Copiar los archivos de la aplicación al directorio raíz de Apache
+# Copiar los archivos de la aplicación al directorio web de Apache
 COPY . /var/www/html
 
-# Establecer permisos para que Apache pueda acceder a los archivos
+# Configurar permisos para el directorio
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
+
+# Configurar el directorio de trabajo
+WORKDIR /var/www/html
 
 # Exponer el puerto predeterminado de Apache
 EXPOSE 80
 
-# Comando para iniciar Apache
+# Comando por defecto para iniciar Apache
 CMD ["apache2-foreground"]
