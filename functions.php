@@ -2,7 +2,17 @@
 // , 'dbblog_lx7d_user', 'AMi0Exeeys15UMt1w4KMdQSK1zZtWylE'
 	function conexion($bd_config){
 		try {
-			$conexion = new PDO('postgresql://dbblog_lx7d_user:AMi0Exeeys15UMt1w4KMdQSK1zZtWylE@dpg-csuevdtumphs73b9fpdg-a.oregon-postgres.render.com/dbblog_lx7d', $bd_config['db.user'], $bd_config['db.password']);
+			$host = 'dpg-csuevdtumphs73b9fpdg-a.oregon-postgres.render.com';
+			$dbname = 'dbblog_lx7d';
+			$user = 'dbblog_lx7d_user';
+			$password = 'AMi0Exeeys15UMt1w4KMdQSK1zZtWylE';
+			$port = 5432; // Puerto predeterminado para PostgreSQL
+	
+			// Configuración de la cadena de conexión
+			$dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
+	
+			// Crear la conexión PDO
+			$conexion = new PDO($dsn, $user, $password);
 			return $conexion;
 		} catch (PDOException $e) {
 			return $e;
