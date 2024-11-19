@@ -32,12 +32,14 @@
 		return isset($_GET['p']) ? (int)$_GET['p'] : 1;
 	}
 
-	function obtener_post($post_por_pagina, $conexion){
-		$inicio = (pagina_actual() > 1) ? pagina_actual() * $post_por_pagina - $post_por_pagina : 0;
-		$sentencia = $conexion->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM articulos LIMIT `inicio`, `post_por_pagina`");
-		$sentencia->execute([$inicio, $post_por_pagina]);
-		return $sentencia->fetchALL();
-	}
+	function obtener_post($post_por_pagina, $conexion) {
+    $inicio = (pagina_actual() > 1) ? pagina_actual() * $post_por_pagina - $post_por_pagina : 0;
+    $sentencia = $conexion->prepare("SELECT * FROM articulos LIMIT :post_por_pagina OFFSET :inicio");
+    $sentencia->bindParam(':post_por_pagina', $post_por_pagina, PDO::PARAM_INT);
+    $sentencia->bindParam(':inicio', $inicio, PDO::PARAM_INT);
+    $sentencia->execute();
+    return $sentencia->fetchAll();
+}
 
 	function numero_paginas($post_por_pagina, $conexion){
 		$total_post = $conexion->prepare('SELECT FOUND_ROWS() as total');
