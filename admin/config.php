@@ -4,7 +4,7 @@
 	$bd_config = array(
 		'db.name' => 'dbblog',
 		'db.user' => 'root',
-		'db.password' => ''
+		'db.password' => 'password'
 	);
 
 	// Cuantos post por pagina mostrar
