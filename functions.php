@@ -2,7 +2,8 @@
 
 	function conexion($bd_config){
 		try {
-			$conexion = new PDO('mysql:host=127.0.0.1;dbname='.$bd_config['db.name'], $bd_config['db.user'], $bd_config['db.password']);
+			$dbRoute = $_ENV("DATABASE_URL");
+			$conexion = new PDO($dbRoute);
 			return $conexion;
 		} catch (PDOException $e) {
 			return $e;
