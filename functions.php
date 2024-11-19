@@ -34,8 +34,8 @@
 
 	function obtener_post($post_por_pagina, $conexion){
 		$inicio = (pagina_actual() > 1) ? pagina_actual() * $post_por_pagina - $post_por_pagina : 0;
-		$sentencia = $conexion->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM articulos LIMIT $inicio, $post_por_pagina");
-		$sentencia->execute();
+		$sentencia = $conexion->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM articulos LIMIT `inicio`, `post_por_pagina`");
+		$sentencia->execute([$inicio, $post_por_pagina]);
 		return $sentencia->fetchALL();
 	}
 
