@@ -1,5 +1,5 @@
 <?php 
-	define('RUTA','http://localhost/blog-uader-gchu/');
+	define('RUTA','https://uader-fhaycs.fly.dev');
 
 	$bd_config = array(
 		'db.name' => 'dbblog',
