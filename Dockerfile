@@ -20,9 +20,6 @@ ENV MYSQL_DATABASE=mydatabase
 ENV MYSQL_USER=user
 ENV MYSQL_PASSWORD=userpassword
 
-# Configurar Apache para tu app MVC (si es necesario)
-COPY ./apache-config.conf /etc/apache2/sites-available/000-default.conf
-
 # Copiar los archivos de la aplicación al directorio raíz de Apache
 COPY . /var/www/html
 
