@@ -1,24 +1,15 @@
-# Usar una imagen base oficial de PHP con Apache
-FROM php:8.1-apache
+# Usar la imagen oficial de MySQL
+FROM mysql:8.0
 
-# Instalar extensiones de PHP necesarias
-RUN docker-php-ext-install pdo_mysql mysqli
+# Establecer variables de entorno (opcional, pero recomendable)
+# El password de root y el nombre de la base de datos inicial
+ENV MYSQL_ROOT_PASSWORD=rootpassword
+ENV MYSQL_DATABASE=mydatabase
+ENV MYSQL_USER=user
+ENV MYSQL_PASSWORD=userpassword
 
-# Habilitar módulos de Apache (si es necesario)
-RUN a2enmod rewrite
+# Exponer el puerto predeterminado de MySQL
+EXPOSE 3306
 
-# Copiar los archivos de la aplicación al directorio web de Apache
-COPY . /var/www/html
-
-# Configurar permisos para el directorio
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
-
-# Configurar el directorio de trabajo
-WORKDIR /var/www/html
-
-# Exponer el puerto predeterminado de Apache
-EXPOSE 80
-
-# Comando por defecto para iniciar Apache
-CMD ["apache2-foreground"]
+# Iniciar MySQL cuando se levante el contenedor
+CMD ["mysqld"]
