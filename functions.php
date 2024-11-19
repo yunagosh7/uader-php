@@ -5,7 +5,8 @@
 			$conexion = new PDO('mysql:host=127.0.0.1;dbname='.$bd_config['db.name'], $bd_config['db.user'], $bd_config['db.password']);
 			return $conexion;
 		} catch (PDOException $e) {
-			return false;
+			return $e;
+			// return false;
 		}
 	}
 
