@@ -2,7 +2,7 @@
 
 	function conexion($bd_config){
 		try {
-			$dbRoute = $_ENV("postgresql://dbblog_lx7d_user:AMi0Exeeys15UMt1w4KMdQSK1zZtWylE@dpg-csuevdtumphs73b9fpdg-a.oregon-postgres.render.com/dbblog_lx7d");
+			$dbRoute = $_ENV("postgresql://dbblog_lx7d_user:AMi0Exeeys15UMt1w4KMdQSK1zZtWylE@dpg-csuevdtumphs73b9fpdg-a.oregon-postgres.render.com/dbblog_lx7d", 'dbblog_lx7d_user', 'AMi0Exeeys15UMt1w4KMdQSK1zZtWylE');
 			$conexion = new PDO($dbRoute);
 			return $conexion;
 		} catch (PDOException $e) {
