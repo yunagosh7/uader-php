@@ -3,8 +3,8 @@
 
 	$bd_config = array(
 		'db.name' => 'dbblog',
-		'db.user' => 'root',
-		'db.password' => ''
+		'db.user' => 'dbblog_lx7d_user',
+		'db.password' => 'AMi0Exeeys15UMt1w4KMdQSK1zZtWylE'
 	);
 
 	// Cuantos post por pagina mostrar
