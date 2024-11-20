@@ -21,8 +21,8 @@
 		move_uploaded_file($thumb, $archivo_subido);
 
 		$statement = $conexion->prepare(
-		'INSERT INTO articulos (id, titulo, extracto, texto, thumb)
-		VALUES (null, :titulo, :extracto, :texto, :thumb)'
+		'INSERT INTO articulos (titulo, extracto, texto, thumb)
+		VALUES (:titulo, :extracto, :texto, :thumb)'
 		);
 
 		$statement->execute(array(
