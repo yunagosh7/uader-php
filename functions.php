@@ -41,24 +41,30 @@
     return $sentencia->fetchAll();
 }
 
-	function numero_paginas($post_por_pagina, $conexion){
-		$total_post = $conexion->prepare('SELECT FOUND_ROWS() as total');
-		$total_post->execute();
-		$total_post = $total_post->fetch()['total'];
+function numero_paginas($post_por_pagina, $conexion) {
+	// En PostgreSQL no existe FOUND_ROWS(); se usa COUNT() en su lugar.
+	$query = $conexion->prepare('SELECT COUNT(*) as total FROM articulos');
+	$query->execute();
+	$total_post = $query->fetch()['total'];
 
-		$numero_paginas =  ceil($total_post / $post_por_pagina);
-		return $numero_paginas;
-	}
+	$numero_paginas = ceil($total_post / $post_por_pagina);
+	return $numero_paginas;
+}
 
-	function id_articulo($id){
-		return (int)limpiarDatos($id);
-	}
+function id_articulo($id) {
+	// Convertir el ID a entero para evitar errores de tipo o inyección.
+	return (int) limpiarDatos($id);
+}
 
-	function obtener_post_por_id($conexion, $id){
-		$resultado = $conexion->query("SELECT * FROM articulos WHERE id = $id LIMIT 1");
-		$resultado = $resultado->fetchALL();
-		return ($resultado) ? $resultado : false;
-	}
+function obtener_post_por_id($conexion, $id) {
+	// Usar parámetros preparados para evitar inyección de SQL.
+	$query = $conexion->prepare('SELECT * FROM articulos WHERE id = :id LIMIT 1');
+	$query->bindValue(':id', (int)$id, PDO::PARAM_INT); // Aseguramos que el ID sea un entero.
+	$query->execute();
+
+	$resultado = $query->fetchAll();
+	return ($resultado) ? $resultado : false;
+}
 
 	function fecha($fecha){
 		$timestamp = strtotime($fecha);
