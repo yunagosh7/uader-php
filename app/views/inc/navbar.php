@@ -1,7 +1,7 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="<?php echo APP_URL; ?>dashboard/">
-        <img src="<?php echo APP_URL; ?>app/views/img/logofhaycs.png" alt="" width="400"
+        <img src="<?php echo APP_URL; ?>/app/views/img/logofhaycs.png" alt="" width="400"
         height="20">
 
         </a>
